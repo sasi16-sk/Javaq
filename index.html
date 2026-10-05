@@ -1,0 +1,818 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Java Lab Journal | B Sasi Kailash</title>
+<style>
+:root{--bg:#fff6dc;--card:#fff;--ink:#111;--tx:#111;--mu:#4a4a4a;--pk:#ff5c8a;--bl:#2b6cff;--yl:#ffd23f;--gr:#3ddc97;--sh:6px 6px 0 var(--ink);box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+@media(prefers-color-scheme:dark){:root:not([data-theme=light]){--bg:#17131f;--card:#241f33;--ink:#f5f0e1;--tx:#f5f0e1;--mu:#bdb6cc}}
+:root[data-theme=dark]{--bg:#17131f;--card:#241f33;--ink:#f5f0e1;--tx:#f5f0e1;--mu:#bdb6cc}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--tx);font:16px/1.6 "Trebuchet MS",system-ui,sans-serif;background-image:radial-gradient(var(--ink) 1px,transparent 1px);background-size:26px 26px;background-attachment:fixed}
+h1,h2,h3,.brand{font-family:"Arial Black",Impact,system-ui,sans-serif;letter-spacing:-.5px}
+pre,code,.bh,.tag{font-family:ui-monospace,Consolas,Menlo,monospace}
+header{position:sticky;top:0;z-index:5;background:var(--yl);color:#111;border-bottom:4px solid var(--ink);padding:10px 16px;display:flex;gap:14px;align-items:center}
+.brand{background:#111;color:var(--yl);padding:4px 12px;cursor:pointer;white-space:nowrap;transform:rotate(-2deg);font-size:18px}
+nav{display:flex;gap:8px;overflow-x:auto;padding:4px 6px 8px}
+nav button,.tabs button{background:#fff;color:#111;border:2px solid #111;box-shadow:3px 3px 0 #111;padding:4px 12px;border-radius:8px;cursor:pointer;white-space:nowrap;font-weight:700;font-size:13px}
+nav button:hover,.tabs button:hover{transform:translate(-1px,-1px)}
+nav button.on,.tabs button.on{background:var(--pk);box-shadow:none;transform:translate(3px,3px)}
+main{max-width:1000px;margin:0 auto;padding:30px 16px 70px}
+.hero{display:grid;grid-template-columns:1fr 300px;gap:40px;align-items:center;min-height:60vh}
+.hero h1{font-size:clamp(34px,6vw,64px);line-height:1;margin:12px 0}
+.hero h1 span{background:var(--pk);color:#111;padding:0 10px;display:inline-block;transform:rotate(-2deg);border:3px solid var(--ink)}
+.hero p{background:var(--card);border:3px solid var(--ink);padding:10px 14px;box-shadow:var(--sh);max-width:480px}
+.tag{display:inline-block;background:var(--bl);color:#fff;padding:2px 10px;border:2px solid var(--ink);font-size:12px;letter-spacing:1px;text-transform:uppercase;font-weight:700}
+.pc{background:var(--gr);color:#111;border:4px solid var(--ink);box-shadow:10px 10px 0 var(--ink);padding:22px;text-align:center;transform:rotate(2deg);border-radius:6px}
+.pc img,.ph{width:130px;height:130px;border-radius:20px;object-fit:cover;border:4px solid #111;margin:0 auto 12px;display:block;background:var(--yl)}
+.ph{display:flex;align-items:center;justify-content:center;font:900 44px Impact,sans-serif}
+.pc h3{margin:4px 0 12px}.pc dl{text-align:left;margin:0;font-size:14px;background:#fff;border:2px solid #111;padding:10px}.pc dt{color:#555;float:left;width:80px;font-weight:700}.pc dd{margin:0 0 4px 80px;font-weight:700}
+h2{font-size:28px}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:18px;margin-top:20px}
+.wk{color:#111;border:3px solid var(--ink);box-shadow:var(--sh);padding:14px;cursor:pointer;transition:.12s;background:var(--yl);font-weight:700}
+.wk:nth-child(3n+2){background:var(--pk)}.wk:nth-child(3n){background:var(--gr)}.wk:nth-child(4n){background:#8ec5ff}
+.wk:hover{transform:translate(-3px,-3px) rotate(-1deg);box-shadow:9px 9px 0 var(--ink)}
+.wk b{font:900 30px Impact,sans-serif;display:block}.wk small{font-weight:400}
+.tabs{display:flex;flex-wrap:wrap;gap:10px;margin:16px 0}
+.box{background:var(--card);border:3px solid var(--ink);box-shadow:var(--sh);margin:20px 0}
+.bh{display:flex;justify-content:space-between;padding:6px 14px;border-bottom:3px solid var(--ink);background:var(--yl);color:#111;font-size:12px;font-weight:700}
+.bh button{background:#111;color:#fff;border:0;padding:1px 10px;cursor:pointer}
+pre{margin:0;padding:14px;overflow-x:auto;font-size:13.5px;line-height:1.55}
+.out .bh{background:var(--gr)}.out pre{background:#111;color:#7dffb0}
+.nb{display:flex;justify-content:space-between;margin-top:24px}
+.nb button{background:var(--bl);color:#fff;border:3px solid var(--ink);box-shadow:var(--sh);padding:8px 18px;font-weight:700;cursor:pointer}
+.nb button:disabled{opacity:.35;box-shadow:none}
+.tw{overflow-x:auto}table{border-collapse:collapse;width:100%;font-size:14px;min-width:760px}
+th,td{border:2px solid var(--ink);padding:8px 10px;text-align:left;vertical-align:top}
+th{background:var(--pk);color:#111}td:first-child{background:var(--yl);color:#111;font-weight:700}
+.k{color:var(--pk);font-weight:700}.s{color:var(--bl)}
+@media(prefers-color-scheme:dark){.s{color:#8ec5ff}}
+@media(max-width:760px){.hero{grid-template-columns:1fr}.pc{transform:none}}
+</style></head><body>
+<header><div class="brand" onclick="location.hash=''">JAVA//LAB</div><nav id="nav"></nav></header>
+<main id="app"></main>
+<script>
+/* ===== EDIT THESE FOR ANOTHER STUDENT ===== */
+const ME={name:"B Sasi Kailash",roll:"25EU02069",year:"II Year",branch:"AI&ML",sec:"B",subj:"Java Programming",img:"assets/profile.png"};
+/* ========================================== */
+const P=(t,c,o)=>({t,c,o});
+const W={
+1:{n:"Language Comparison",table:{h:["Feature","Java","C","C++","Python","JavaScript"],r:[
+["Developed by","Sun Microsystems (James Gosling)","Dennis Ritchie, Bell Labs","Bjarne Stroustrup","Guido van Rossum","Brendan Eich, Netscape"],
+["First release","1995","1972","1985","1991","1995"],
+["Paradigm","Object-oriented","Procedural","Procedural + OOP","Multi-paradigm","Multi-paradigm, event-driven"],
+["Typing","Static, strong","Static, weak","Static","Dynamic, strong","Dynamic, weak"],
+["Execution","Compiled to bytecode, run on JVM","Compiled to machine code","Compiled to machine code","Interpreted","Interpreted / JIT in browser"],
+["Memory management","Automatic (garbage collector)","Manual (malloc/free)","Manual (new/delete)","Automatic (GC)","Automatic (GC)"],
+["Pointers","Not supported (references only)","Supported","Supported","Not supported","Not supported"],
+["Platform independent","Yes (Write Once, Run Anywhere)","No","No","Yes","Yes (runs in browser/Node)"],
+["Multiple inheritance","Via interfaces only","Not applicable","Supported","Supported","Via mixins"],
+["File extension",".java / .class",".c",".cpp",".py",".js"],
+["Typical use","Enterprise apps, Android, backend","Operating systems, embedded","Games, system software","AI/ML, scripting, data science","Web front-end and back-end"]]}},
+2:{n:"JDK Installation",p:[
+P("Program 1: Oracle JDK Installation (Windows)",`Step 1: Open oracle.com/java/technologies/downloads
+Step 2: Download the Windows x64 Installer (.exe)
+Step 3: Run the installer and click Next, then Install
+Step 4: Set JAVA_HOME = C:\\Program Files\\Java\\jdk-21
+Step 5: Add %JAVA_HOME%\\bin to the PATH variable
+Step 6: Open Command Prompt and run:
+        java -version
+        javac -version`,`java version "21.0.2" 2024-01-16 LTS
+Java(TM) SE Runtime Environment (build 21.0.2+13-LTS-58)
+Java HotSpot(TM) 64-Bit Server VM (build 21.0.2+13-LTS-58, mixed mode, sharing)
+
+javac 21.0.2`),
+P("Program 2: OpenJDK Installation (Windows)",`Step 1: Open jdk.java.net and download the Windows x64 zip
+Step 2: Extract it to C:\\Java\\openjdk-21
+Step 3: Set JAVA_HOME = C:\\Java\\openjdk-21
+Step 4: Add %JAVA_HOME%\\bin to the PATH variable
+Step 5: Open a new Command Prompt and run:
+        java -version`,`openjdk version "21.0.2" 2024-01-16
+OpenJDK Runtime Environment (build 21.0.2+13-39)
+OpenJDK 64-Bit Server VM (build 21.0.2+13-39, mixed mode, sharing)`)]},
+3:{n:"Java Basics",p:[
+P("P1: Hello, Java!",String.raw`public class Hello {
+    public static void main(String[] args) {
+        System.out.println("Hello, Java!");
+    }
+}`,"Hello, Java!"),
+P("P2: Primitive Data Types",String.raw`public class DataTypes {
+    public static void main(String[] args) {
+        byte b = 100;  short s = 20000;  int i = 123456;
+        long l = 9876543210L;  float f = 3.14f;  double d = 2.718281828;
+        char c = 'J';  boolean flag = true;
+        System.out.println("byte    : " + b);
+        System.out.println("short   : " + s);
+        System.out.println("int     : " + i);
+        System.out.println("long    : " + l);
+        System.out.println("float   : " + f);
+        System.out.println("double  : " + d);
+        System.out.println("char    : " + c);
+        System.out.println("boolean : " + flag);
+    }
+}`,`byte    : 100
+short   : 20000
+int     : 123456
+long    : 9876543210
+float   : 3.14
+double  : 2.718281828
+char    : J
+boolean : true`),
+P("P3: Integer Arithmetic",String.raw`public class IntOps {
+    public static void main(String[] args) {
+        int a = 20, b = 6;
+        System.out.println("Addition       : " + (a + b));
+        System.out.println("Subtraction    : " + (a - b));
+        System.out.println("Multiplication : " + (a * b));
+        System.out.println("Division       : " + (a / b));
+        System.out.println("Modulus        : " + (a % b));
+    }
+}`,`Addition       : 26
+Subtraction    : 14
+Multiplication : 120
+Division       : 3
+Modulus        : 2`),
+P("P4: Floating-Point Arithmetic",String.raw`public class FloatOps {
+    public static void main(String[] args) {
+        double x = 7.5, y = 2.5;
+        System.out.println("Sum        : " + (x + y));
+        System.out.println("Difference : " + (x - y));
+        System.out.println("Product    : " + (x * y));
+        System.out.println("Quotient   : " + (x / y));
+        System.out.println("Remainder  : " + (x % y));
+    }
+}`,`Sum        : 10.0
+Difference : 5.0
+Product    : 18.75
+Quotient   : 3.0
+Remainder  : 0.0`),
+P("P5: Character and ASCII Value",String.raw`public class CharDemo {
+    public static void main(String[] args) {
+        char ch = 'A';
+        System.out.println("Character     : " + ch);
+        System.out.println("ASCII/Unicode : " + (int) ch);
+    }
+}`,`Character     : A
+ASCII/Unicode : 65`),
+P("P6: Boolean and Relational Operators",String.raw`public class BoolDemo {
+    public static void main(String[] args) {
+        int a = 10, b = 20;
+        boolean r = a < b;
+        System.out.println("Stored result : " + r);
+        System.out.println("a <  b : " + (a < b));
+        System.out.println("a >  b : " + (a > b));
+        System.out.println("a == b : " + (a == b));
+        System.out.println("a != b : " + (a != b));
+        System.out.println("a <= b : " + (a <= b));
+        System.out.println("a >= b : " + (a >= b));
+    }
+}`,`Stored result : true
+a <  b : true
+a >  b : false
+a == b : false
+a != b : true
+a <= b : true
+a >= b : false`),
+P("P7: Declaring and Initializing Variables",String.raw`public class Variables {
+    public static void main(String[] args) {
+        String name = "Sasi";
+        int age = 19;
+        double cgpa = 8.7;
+        char grade = 'A';
+        boolean passed = true;
+        System.out.println("Name   : " + name);
+        System.out.println("Age    : " + age);
+        System.out.println("CGPA   : " + cgpa);
+        System.out.println("Grade  : " + grade);
+        System.out.println("Passed : " + passed);
+    }
+}`,`Name   : Sasi
+Age    : 19
+CGPA   : 8.7
+Grade  : A
+Passed : true`),
+P("P8: Swap Using a Temporary Variable",String.raw`public class Swap {
+    public static void main(String[] args) {
+        int a = 15, b = 40, temp;
+        System.out.println("Before: a = " + a + ", b = " + b);
+        temp = a;
+        a = b;
+        b = temp;
+        System.out.println("After : a = " + a + ", b = " + b);
+    }
+}`,`Before: a = 15, b = 40
+After : a = 40, b = 15`),
+P("P9: Widening Type Conversion",String.raw`public class Widening {
+    public static void main(String[] args) {
+        int i = 100;
+        long l = i;
+        float f = l;
+        double d = f;
+        System.out.println("int    : " + i);
+        System.out.println("long   : " + l);
+        System.out.println("float  : " + f);
+        System.out.println("double : " + d);
+    }
+}`,`int    : 100
+long   : 100
+float  : 100.0
+double : 100.0`),
+P("P10: Narrowing Type Casting",String.raw`public class Narrowing {
+    public static void main(String[] args) {
+        double d = 9.78;
+        int i = (int) d;
+        int big = 130;
+        byte b = (byte) big;
+        System.out.println("double 9.78 -> int  : " + i);
+        System.out.println("int 130     -> byte : " + b);
+    }
+}`,`double 9.78 -> int  : 9
+int 130     -> byte : -126`),
+P("P11: Character and ASCII Conversion",String.raw`public class CharAscii {
+    public static void main(String[] args) {
+        char c = 'a';
+        int code = c;
+        char next = (char) (c + 1);
+        char fromCode = (char) 66;
+        System.out.println("'a' as int      : " + code);
+        System.out.println("'a' + 1 as char : " + next);
+        System.out.println("66 as char      : " + fromCode);
+    }
+}`,`'a' as int      : 97
+'a' + 1 as char : b
+66 as char      : B`),
+P("P12: Even or Odd",String.raw`public class EvenOdd {
+    public static void main(String[] args) {
+        int num = 7;
+        if (num % 2 == 0)
+            System.out.println(num + " is Even");
+        else
+            System.out.println(num + " is Odd");
+    }
+}`,"7 is Odd"),
+P("P13: Largest of Two Numbers",String.raw`public class Largest {
+    public static void main(String[] args) {
+        int a = 45, b = 72;
+        int max = (a > b) ? a : b;
+        System.out.println("Largest of " + a + " and " + b + " is " + max);
+    }
+}`,"Largest of 45 and 72 is 72"),
+P("P14: Reserved Keywords",String.raw`public class Keywords {
+    public static void main(String[] args) {
+        String[] kw = {"class", "public", "static", "void", "int", "if", "else", "for", "while", "return"};
+        System.out.println("Some Java reserved keywords:");
+        for (String k : kw)
+            System.out.println(" - " + k);
+        // int class = 5;   // Error: 'class' is a reserved keyword
+    }
+}`,`Some Java reserved keywords:
+ - class
+ - public
+ - static
+ - void
+ - int
+ - if
+ - else
+ - for
+ - while
+ - return`),
+P("P15: for Loop (1 to 10)",String.raw`public class ForLoop {
+    public static void main(String[] args) {
+        for (int i = 1; i <= 10; i++) {
+            System.out.print(i + " ");
+        }
+    }
+}`,"1 2 3 4 5 6 7 8 9 10")]},
+4:{n:"No Task",note:"No programming task was assigned this week."},
+5:{n:"No Task",note:"No programming task was assigned this week."},
+6:{n:"Classes and Objects",p:[
+P("Program 1: Student Information System",String.raw`class Student {
+    int id; String name; String branch;
+    void setData(int i, String n, String b) { id = i; name = n; branch = b; }
+    void display() {
+        System.out.println("ID     : " + id);
+        System.out.println("Name   : " + name);
+        System.out.println("Branch : " + branch);
+    }
+}
+public class StudentSystem {
+    public static void main(String[] args) {
+        Student s = new Student();
+        s.setData(101, "Ravi", "AI&ML");
+        s.display();
+    }
+}`,`ID     : 101
+Name   : Ravi
+Branch : AI&ML`),
+P("Program 5: Reference Assignment",String.raw`class Box { int v = 10; }
+public class RefAssign {
+    public static void main(String[] args) {
+        Box b1 = new Box();
+        Box b2 = b1;
+        b2.v = 99;
+        System.out.println("b1.v = " + b1.v);
+        System.out.println("b2.v = " + b2.v);
+    }
+}`,`b1.v = 99
+b2.v = 99`),
+P("Program 8: Rectangle Operations",String.raw`class Rectangle {
+    int l, w;
+    Rectangle(int l, int w) { this.l = l; this.w = w; }
+    int area() { return l * w; }
+    int perimeter() { return 2 * (l + w); }
+}
+public class RectDemo {
+    public static void main(String[] args) {
+        Rectangle r = new Rectangle(8, 5);
+        System.out.println("Area      : " + r.area());
+        System.out.println("Perimeter : " + r.perimeter());
+    }
+}`,`Area      : 40
+Perimeter : 26`),
+P("Program 21: Static Variable",String.raw`class Student {
+    static int count = 0;
+    Student() { count++; }
+}
+public class StaticDemo {
+    public static void main(String[] args) {
+        new Student(); new Student(); new Student();
+        System.out.println("Students created: " + Student.count);
+    }
+}`,"Students created: 3")]},
+7:{n:"Strings and Inheritance",p:[
+P("Program 1: String Constructors",String.raw`public class StringCons {
+    public static void main(String[] args) {
+        String s1 = "Hello";
+        String s2 = new String("Java");
+        char[] ch = {'J', 'a', 'v', 'a'};
+        String s3 = new String(ch);
+        String s4 = new String(ch, 1, 2);
+        byte[] by = {65, 66, 67};
+        String s5 = new String(by);
+        System.out.println("Literal       : " + s1);
+        System.out.println("new String()  : " + s2);
+        System.out.println("Char array    : " + s3);
+        System.out.println("Char subset   : " + s4);
+        System.out.println("Byte array    : " + s5);
+    }
+}`,`Literal       : Hello
+new String()  : Java
+Char array    : Java
+Char subset   : av
+Byte array    : ABC`),
+P("Program 2: StringBuffer Class",String.raw`public class BufferDemo {
+    public static void main(String[] args) {
+        StringBuffer sb = new StringBuffer("Hello");
+        sb.append(" World");   System.out.println("append  : " + sb);
+        sb.insert(5, ",");     System.out.println("insert  : " + sb);
+        sb.replace(0, 5, "Hi");System.out.println("replace : " + sb);
+        sb.delete(2, 3);       System.out.println("delete  : " + sb);
+        sb.reverse();          System.out.println("reverse : " + sb);
+    }
+}`,`append  : Hello World
+insert  : Hello, World
+replace : Hi, World
+delete  : Hi World
+reverse : dlroW iH`),
+P("Program 3: StringTokenizer Class",String.raw`import java.util.StringTokenizer;
+public class TokenDemo {
+    public static void main(String[] args) {
+        StringTokenizer st = new StringTokenizer("Java is fun to learn");
+        System.out.println("Total tokens: " + st.countTokens());
+        while (st.hasMoreTokens())
+            System.out.println(st.nextToken());
+        StringTokenizer st2 = new StringTokenizer("apple,banana,cherry", ",");
+        System.out.println("Tokens with delimiter ',' : " + st2.countTokens());
+        while (st2.hasMoreTokens())
+            System.out.println(st2.nextToken());
+    }
+}`,`Total tokens: 5
+Java
+is
+fun
+to
+learn
+Tokens with delimiter ',' : 3
+apple
+banana
+cherry`),
+P("Program 4: Basic Inheritance",String.raw`class Parent {
+    void showParent() { System.out.println("This is the parent class"); }
+}
+class Child extends Parent {
+    void showChild() { System.out.println("This is the child class"); }
+}
+public class BasicInherit {
+    public static void main(String[] args) {
+        Child c = new Child();
+        c.showParent();
+        c.showChild();
+    }
+}`,`This is the parent class
+This is the child class`),
+P("Program 5: Using super Keyword",String.raw`class Parent {
+    int x = 10;
+    void show() { System.out.println("Parent show()"); }
+}
+class Child extends Parent {
+    int x = 20;
+    void display() {
+        System.out.println("Child x  = " + x);
+        System.out.println("Parent x = " + super.x);
+        super.show();
+    }
+}
+public class SuperDemo {
+    public static void main(String[] args) {
+        new Child().display();
+    }
+}`,`Child x  = 20
+Parent x = 10
+Parent show()`)]},
+8:{n:"Inheritance",p:[
+P("Program 1: Single Inheritance",String.raw`class Person {
+    String name; int age;
+    void showPerson() { System.out.println("Name: " + name + ", Age: " + age); }
+}
+class Student extends Person {
+    int roll;
+    void showStudent() { showPerson(); System.out.println("Roll: " + roll); }
+}
+public class SingleInherit {
+    public static void main(String[] args) {
+        Student s = new Student();
+        s.name = "Ravi"; s.age = 19; s.roll = 101;
+        s.showStudent();
+    }
+}`,`Name: Ravi, Age: 19
+Roll: 101`),
+P("Program 2: Using super Keyword",String.raw`class Person {
+    String type = "Person";
+    void greet() { System.out.println("Hello from Person"); }
+}
+class Student extends Person {
+    String type = "Student";
+    void show() {
+        System.out.println("Subclass type   : " + type);
+        System.out.println("Superclass type : " + super.type);
+        super.greet();
+    }
+}
+public class SuperVar {
+    public static void main(String[] args) { new Student().show(); }
+}`,`Subclass type   : Student
+Superclass type : Person
+Hello from Person`),
+P("Program 3: Multilevel Inheritance",String.raw`class Person {
+    void person() { System.out.println("Person: has a name"); }
+}
+class Employee extends Person {
+    void employee() { System.out.println("Employee: has an employee ID"); }
+}
+class Manager extends Employee {
+    void manager() { System.out.println("Manager: manages a team"); }
+}
+public class Multilevel {
+    public static void main(String[] args) {
+        Manager m = new Manager();
+        m.person(); m.employee(); m.manager();
+    }
+}`,`Person: has a name
+Employee: has an employee ID
+Manager: manages a team`),
+P("Program 4: Method Overriding",String.raw`class Animal { void sound() { System.out.println("Animal makes a sound"); } }
+class Dog extends Animal { void sound() { System.out.println("Dog barks"); } }
+class Cat extends Animal { void sound() { System.out.println("Cat meows"); } }
+public class Override {
+    public static void main(String[] args) {
+        new Animal().sound();
+        new Dog().sound();
+        new Cat().sound();
+    }
+}`,`Animal makes a sound
+Dog barks
+Cat meows`),
+P("Program 5: Dynamic Method Dispatch",String.raw`class Shape { void draw() { System.out.println("Drawing a shape"); } }
+class Circle extends Shape { void draw() { System.out.println("Drawing a circle"); } }
+class Rectangle extends Shape { void draw() { System.out.println("Drawing a rectangle"); } }
+class Triangle extends Shape { void draw() { System.out.println("Drawing a triangle"); } }
+public class Dispatch {
+    public static void main(String[] args) {
+        Shape s;
+        s = new Circle();    s.draw();
+        s = new Rectangle(); s.draw();
+        s = new Triangle();  s.draw();
+    }
+}`,`Drawing a circle
+Drawing a rectangle
+Drawing a triangle`),
+P("Program 6: super with Method Overriding",String.raw`class Person {
+    void display() { System.out.println("Person details displayed"); }
+}
+class Student extends Person {
+    void display() {
+        super.display();
+        System.out.println("Student details displayed");
+    }
+}
+public class SuperOverride {
+    public static void main(String[] args) { new Student().display(); }
+}`,`Person details displayed
+Student details displayed`),
+P("Program 7: Salary Calculation (Multilevel)",String.raw`class Employee {
+    double basic = 30000;
+    double salary() { return basic; }
+}
+class Developer extends Employee {
+    double bonus = 10000;
+    double salary() { return super.salary() + bonus; }
+}
+class SeniorDeveloper extends Developer {
+    double allowance = 5000;
+    double salary() { return super.salary() + allowance; }
+}
+public class SalaryCalc {
+    public static void main(String[] args) {
+        SeniorDeveloper sd = new SeniorDeveloper();
+        System.out.println("Total Salary: " + sd.salary());
+    }
+}`,"Total Salary: 45000.0"),
+P("Program 8: Dynamic Dispatch for Bank Accounts",String.raw`class BankAccount {
+    double interest(double bal) { return 0; }
+}
+class SavingsAccount extends BankAccount {
+    double interest(double bal) { return bal * 0.04; }
+}
+class CurrentAccount extends BankAccount {
+    double interest(double bal) { return 0; }
+}
+public class BankDispatch {
+    public static void main(String[] args) {
+        BankAccount acc;
+        acc = new SavingsAccount();
+        System.out.println("Savings interest : " + acc.interest(10000));
+        acc = new CurrentAccount();
+        System.out.println("Current interest : " + acc.interest(10000));
+    }
+}`,`Savings interest : 400.0
+Current interest : 0.0`),
+P("Program 9: Constructor Execution Order",String.raw`class A { A() { System.out.println("Constructor of A"); } }
+class B extends A { B() { System.out.println("Constructor of B"); } }
+class C extends B { C() { System.out.println("Constructor of C"); } }
+public class ConsOrder {
+    public static void main(String[] args) { new C(); }
+}`,`Constructor of A
+Constructor of B
+Constructor of C`),
+P("Program 10: Banking Application Using Inheritance",String.raw`class Account {
+    double balance;
+    Account(double b) { balance = b; }
+    void deposit(double a) { balance += a; System.out.println("Deposited " + a); }
+    void withdraw(double a) {
+        if (a <= balance) { balance -= a; System.out.println("Withdrew " + a); }
+        else System.out.println("Insufficient balance");
+    }
+}
+class SavingsAccount extends Account {
+    SavingsAccount(double b) { super(b); }
+    void addInterest() { balance += balance * 0.05; System.out.println("Interest added"); }
+}
+public class BankApp {
+    public static void main(String[] args) {
+        SavingsAccount s = new SavingsAccount(5000);
+        s.deposit(2000);
+        s.withdraw(1000);
+        s.withdraw(9000);
+        s.addInterest();
+        System.out.println("Final balance: " + s.balance);
+    }
+}`,`Deposited 2000.0
+Withdrew 1000.0
+Insufficient balance
+Interest added
+Final balance: 6300.0`)]},
+9:{n:"Packages and Interfaces",p:[
+P("Program 1: User-Defined Package",String.raw`// File: mypackage/Student.java
+package mypackage;
+public class Student {
+    public void show() { System.out.println("Student class from mypackage"); }
+}
+
+// File: TestPackage.java
+import mypackage.Student;
+public class TestPackage {
+    public static void main(String[] args) { new Student().show(); }
+}
+// javac -d . mypackage/Student.java   then   javac TestPackage.java   then   java TestPackage`,"Student class from mypackage"),
+P("Program 2: Importing Packages",String.raw`// File: college/Student.java
+package college;
+public class Student { public void info() { System.out.println("Student of college"); } }
+// File: college/Faculty.java
+package college;
+public class Faculty { public void info() { System.out.println("Faculty of college"); } }
+
+// File: ImportDemo.java
+import college.Student;     // specific import
+import college.*;           // wildcard import
+public class ImportDemo {
+    public static void main(String[] args) {
+        new Student().info();
+        new Faculty().info();
+    }
+}`,`Student of college
+Faculty of college`),
+P("Program 3: Packages and Member Access",String.raw`// File: p1/A.java
+package p1;
+public class A {
+    public int a = 1; protected int b = 2; int c = 3; private int d = 4;
+    public void show() { System.out.println("Same class: " + a + " " + b + " " + c + " " + d); }
+}
+// File: p1/B.java  (same package)
+package p1;
+public class B {
+    public void test() { A o = new A(); System.out.println("Same package: " + o.a + " " + o.b + " " + o.c); }
+}
+// File: p2/C.java  (different package)
+package p2;
+import p1.A;
+public class C {
+    public void test() { A o = new A(); System.out.println("Different package: " + o.a); }
+}
+// File: Main.java
+public class Main {
+    public static void main(String[] args) {
+        new p1.A().show(); new p1.B().test(); new p2.C().test();
+    }
+}`,`Same class: 1 2 3 4
+Same package: 1 2 3
+Different package: 1`),
+P("Program 4: CLASSPATH",String.raw`// File: C:\javalib\utilities\Calculator.java
+package utilities;
+public class Calculator { public int add(int a, int b) { return a + b; } }
+
+// File: Main.java
+import utilities.Calculator;
+public class Main {
+    public static void main(String[] args) {
+        System.out.println("Sum = " + new Calculator().add(10, 5));
+    }
+}
+// javac -d C:\javalib utilities\Calculator.java
+// set CLASSPATH=C:\javalib;.
+// javac Main.java   then   java Main`,"Sum = 15"),
+P("Program 5: Package with Multiple Classes",String.raw`// File: bank/Account.java
+package bank;
+public class Account { public int accNo = 1001; public double balance = 5000; }
+// File: bank/Customer.java
+package bank;
+public class Customer { public String name = "Ravi"; }
+// File: bank/Transaction.java
+package bank;
+public class Transaction {
+    public void deposit(Account a, double amt) { a.balance += amt; }
+}
+// File: BankMain.java
+import bank.*;
+public class BankMain {
+    public static void main(String[] args) {
+        Account a = new Account(); Customer c = new Customer();
+        new Transaction().deposit(a, 2500);
+        System.out.println("Customer : " + c.name);
+        System.out.println("Account  : " + a.accNo);
+        System.out.println("Balance  : " + a.balance);
+    }
+}`,`Customer : Ravi
+Account  : 1001
+Balance  : 7500.0`),
+P("Program 6: Defining and Implementing an Interface",String.raw`interface Shape { double area(); }
+class Circle implements Shape {
+    double r = 7;
+    public double area() { return Math.PI * r * r; }
+}
+class Rectangle implements Shape {
+    double l = 10, w = 4;
+    public double area() { return l * w; }
+}
+public class InterfaceDemo {
+    public static void main(String[] args) {
+        Shape c = new Circle();
+        Shape r = new Rectangle();
+        System.out.println("Circle area    : " + c.area());
+        System.out.println("Rectangle area : " + r.area());
+    }
+}`,`Circle area    : 153.93804002589985
+Rectangle area : 40.0`),
+P("Program 7: Multiple Interfaces",String.raw`interface Printable { void print(); }
+interface Showable { void show(); }
+class Demo implements Printable, Showable {
+    public void print() { System.out.println("Printing..."); }
+    public void show() { System.out.println("Showing..."); }
+    public static void main(String[] args) {
+        Demo d = new Demo();
+        d.print();
+        d.show();
+    }
+}`,`Printing...
+Showing...`),
+P("Program 8: Interface-Based Polymorphism",String.raw`interface Vehicle { void run(); }
+class Car implements Vehicle { public void run() { System.out.println("Car runs on road"); } }
+class Bike implements Vehicle { public void run() { System.out.println("Bike runs on two wheels"); } }
+public class VehicleDemo {
+    public static void main(String[] args) {
+        Vehicle v;
+        v = new Car();  v.run();
+        v = new Bike(); v.run();
+    }
+}`,`Car runs on road
+Bike runs on two wheels`),
+P("Program 9: Variables in Interfaces",String.raw`interface Constants {
+    int MAX_MARKS = 100;
+    double PI = 3.14;
+}
+class Test implements Constants {
+    void show() {
+        System.out.println("MAX_MARKS (via class) : " + MAX_MARKS);
+        System.out.println("PI (via class)        : " + PI);
+    }
+}
+public class ConstDemo {
+    public static void main(String[] args) {
+        new Test().show();
+        System.out.println("MAX_MARKS (interface) : " + Constants.MAX_MARKS);
+        System.out.println("PI (interface)        : " + Constants.PI);
+    }
+}`,`MAX_MARKS (via class) : 100
+PI (via class)        : 3.14
+MAX_MARKS (interface) : 100
+PI (interface)        : 3.14`),
+P("Program 10: Nested Interfaces",String.raw`class University {
+    interface Department { void showDept(); }
+}
+class CSE implements University.Department {
+    public void showDept() { System.out.println("Department: Computer Science"); }
+}
+public class NestedInterface {
+    public static void main(String[] args) {
+        University.Department d = new CSE();
+        d.showDept();
+    }
+}`,"Department: Computer Science"),
+P("Program 11: Interface Inheritance",String.raw`interface Animal { void eat(); }
+interface Dog extends Animal { void bark(); }
+class Labrador implements Dog {
+    public void eat() { System.out.println("Labrador eats"); }
+    public void bark() { System.out.println("Labrador barks"); }
+}
+public class InterfaceInherit {
+    public static void main(String[] args) {
+        Labrador l = new Labrador();
+        l.eat();
+        l.bark();
+    }
+}`,`Labrador eats
+Labrador barks`),
+P("Program 12: Real-World Application (Payments)",String.raw`interface Payment { void pay(double amount); }
+class UPI implements Payment {
+    public void pay(double a) { System.out.println("Paid Rs." + a + " using UPI"); }
+}
+class CreditCard implements Payment {
+    public void pay(double a) { System.out.println("Paid Rs." + a + " using Credit Card"); }
+}
+public class Checkout {
+    public static void main(String[] args) {
+        Payment p;
+        p = new UPI();        p.pay(499.0);
+        p = new CreditCard(); p.pay(1299.5);
+    }
+}`,`Paid Rs.499.0 using UPI
+Paid Rs.1299.5 using Credit Card`)]}
+};
+const $=s=>document.querySelector(s),app=$("#app"),nav=$("#nav");
+const esc=s=>s.replace(/&/g,"&amp;").replace(/</g,"&lt;");
+const hl=s=>esc(s).replace(/\b(public|class|static|void|int|double|float|long|short|byte|char|boolean|new|return|if|else|for|extends|implements|interface|this|String|System)\b/g,'<span class=k>$1</span>').replace(/("[^"]*")/g,'<span class=s>$1</span>');
+nav.innerHTML=Object.keys(W).map(k=>`<button data-w="${k}" onclick="location.hash='#/w/${k}/0'">Week ${k}</button>`).join("");
+function home(){
+ const pic=`<img src="${ME.img}" alt="profile" onerror="this.outerHTML='<div class=ph>${ME.name.split(' ').map(x=>x[0]).join('').slice(0,2)}</div>'">`;
+ app.innerHTML=`<section class="hero"><div><div class="tag">${ME.subj} • Lab Journal</div><h1>Write it. Run it. <span>Nail it.</span></h1><p style="color:var(--mu);max-width:480px">A digital notebook of every Java experiment I ran this semester, with source code and console output, week by week.</p></div>
+ <div class="pc">${pic}<h3>${ME.name}</h3><dl><dt>Roll No</dt><dd>${ME.roll}</dd><dt>Year</dt><dd>${ME.year}</dd><dt>Branch</dt><dd>${ME.branch}</dd><dt>Section</dt><dd>${ME.sec}</dd><dt>Subject</dt><dd>${ME.subj}</dd></dl></div></section>
+ <h2>Pick a week</h2><div class="grid">${Object.entries(W).map(([k,v])=>`<div class="wk" onclick="location.hash='#/w/${k}/0'"><b>W${k}</b>${v.n}<br><small>${v.p?v.p.length+" programs":v.table?"Table":"Nil"}</small></div>`).join("")}</div>`;
+}
+function week(k,i){
+ const w=W[k];let h=`<div class="tag">Week ${k}</div><h2 style="margin:4px 0">${w.n}</h2>`;
+ if(w.table){const t=w.table;h+=`<div class="box tw"><table><tr>${t.h.map(x=>`<th>${x}</th>`).join("")}</tr>${t.r.map(r=>`<tr>${r.map(c=>`<td>${c}</td>`).join("")}</tr>`).join("")}</table></div>`}
+ else if(w.note)h+=`<div class="box" style="padding:30px;text-align:center;color:var(--mu)">${w.note}</div>`;
+ else{const p=w.p[i];
+  h+=`<div class="tabs">${w.p.map((x,j)=>`<button class="${j==i?"on":""}" onclick="location.hash='#/w/${k}/${j}'">${x.t.split(":")[0]}</button>`).join("")}</div><h3>${p.t}</h3>
+  <div class="box"><div class="bh"><span>SOURCE CODE</span><button onclick="cp(this)">copy</button></div><pre>${hl(p.c)}</pre></div>
+  <div class="box out"><div class="bh"><span>OUTPUT</span></div><pre>${esc(p.o)}</pre></div>
+  <div class="nb"><button ${i?"":"disabled"} onclick="location.hash='#/w/${k}/${i-1}'">&larr; Prev</button><button ${i<w.p.length-1?"":"disabled"} onclick="location.hash='#/w/${k}/${i+1}'">Next &rarr;</button></div>`}
+ app.innerHTML=h;
+}
+function cp(b){navigator.clipboard&&navigator.clipboard.writeText(b.closest(".box").querySelector("pre").textContent);b.textContent="copied";setTimeout(()=>b.textContent="copy",1200)}
+function route(){
+ const m=location.hash.match(/#\/w\/(\d+)\/(\d+)/);
+ nav.querySelectorAll("button").forEach(b=>b.classList.toggle("on",m&&b.dataset.w==m[1]));
+ m&&W[m[1]]?week(m[1],+m[2]):home();window.scrollTo(0,0);
+}
+addEventListener("hashchange",route);route();
+</script></body></html>
